@@ -3,295 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKAT Group - Global Logistics & Advanced Tech</title>
+    <title>SKAT Group - Global Logistics & Tracking</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #0b0f19; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .hero { text-align: center; padding: 50px 20px; background: linear-gradient(to bottom, #070a12, #0b0f19); }
-        .logo-container { max-width: 250px; margin: 0 auto 20px auto; }
-        .logo-container img { width: 100%; height: auto; border-radius: 10px; border: 2px solid #d4af37; display: block; margin: 0 auto; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-        h1 { font-size: 2.5rem; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
-        .tagline { font-size: 1rem; color: #a0aec0; margin-bottom: 35px; letter-spacing: 1px; text-transform: uppercase; }
+        :root {
+            --primary: #111;
+            --accent: #fc8181;
+            --text: #fff;
+            --bg: #050505;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        header { background: rgba(0,0,0,0.8); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; color: var(--text); }
+        .logo span { color: var(--accent); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .hero { text-align: center; padding: 60px 20px; border-bottom: 1px solid #111; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; letter-spacing: 1px; }
+        .hero p { color: #888; font-size: 18px; max-width: 600px; margin: 0 auto 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 40px; border-radius: 8px; transition: 0.3s; }
+        .card:hover { border-color: var(--accent); }
+        .card h2 { margin-bottom: 20px; font-size: 24px; }
+        input, textarea, select { width: 100%; padding: 15px; background: #111; border: 1px solid #222; color: #fff; border-radius: 4px; margin-bottom: 15px; font-size: 16px; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        .btn { display: inline-block; width: 100%; padding: 15px; background: var(--text); color: #000; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; transition: 0.3s; margin-bottom: 10px; }
+        .btn:hover { background: var(--accent); color: #fff; }
+        .btn-alt { background: #111; color: #fff; border: 1px solid #222; }
+        .btn-alt:hover { background: #222; }
+        #statusResult { margin-top: 20px; padding: 20px; background: #111; border-left: 4px solid var(--accent); border-radius: 4px; display: none; }
+        .status-item { margin-bottom: 10px; font-size: 16px; }
+        .status-item strong { color: var(--accent); }
+        footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #111; font-size: 14px; margin-top: 6px; }
         
-        .main-grid { max-width: 1100px; margin: 0 auto 50px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 20px; }
-        .card-container { background: rgba(255, 255, 255, 0.03); padding: 35px; border: 1px solid #d4af37; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.6); }
-        .card-container h2 { font-size: 1.3rem; margin-top: 0; margin-bottom: 25px; color: #ffffff; letter-spacing: 1px; text-transform: uppercase; text-align: center; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 10px; }
-        
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 0.85rem; color: #a0aec0; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
-        .search-box, .form-select, textarea { width: 100%; padding: 14px; border: 2px solid #4a4a4a; border-radius: 8px; background-color: #1a202c; color: #ffffff; font-weight: bold; font-size: 1rem; outline: none; transition: 0.3s; box-sizing: border-box; }
-        .search-box:focus, .form-select:focus, textarea:focus { border-color: #d4af37; box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
-        textarea { height: 100px; resize: vertical; font-family: inherit; }
-        
-        #customDestGroup { display: none; margin-top: 15px; background: rgba(212, 175, 55, 0.05); padding: 15px; border-radius: 8px; border: 1px dashed rgba(212, 175, 55, 0.3); }
-
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .search-btn { background: linear-gradient(135deg, #d4af37, #aa841b); color: #000; border: none; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-sizing: border-box; }
-        .search-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-        
-        .action-btn { border: none; padding: 14px 10px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: 0.3s; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .action-btn:hover { transform: translateY(-1px); }
-        .btn-wa { background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; }
-        .btn-wa:hover { box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
-        .btn-mail { background: linear-gradient(135deg, #ea4335, #b21f14); color: #fff; }
-        .btn-mail:hover { box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3); }
-        
-        .btn-fb { background: linear-gradient(135deg, #1877f2, #0d52b7); color: #fff; grid-column: span 2; margin-top: 5px; }
-        .btn-fb:hover { box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); }
-
-        .legal-note { font-size: 0.75rem; color: #a0aec0; margin-top: 15px; text-align: center; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
-        #statusResult { margin-top: 25px; font-size: 1.1rem; font-weight: bold; padding: 15px; border-radius: 8px; display: none; background: rgba(212, 175, 55, 0.05); border: 1px dashed #d4af37; text-align: left; line-height: 1.6; }
-
-        .service-list { list-style: none; padding: 0; margin: 0; }
-        .service-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; background: rgba(255,255,255,0.02); padding: 12px 15px; border-radius: 6px; border-left: 3px solid #d4af37; font-size: 0.95rem; }
-        .service-btn { background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 6px 12px; font-size: 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .service-btn:hover { background: #d4af37; color: #000; }
-
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background-color: #0f1422; margin: 12% auto; padding: 30px; border: 1px solid #d4af37; width: 85%; max-width: 550px; border-radius: 12px; box-shadow: 0 5px 30px rgba(212,175,55,0.2); text-align: left; position: relative; }
-        .close-btn { color: #a0aec0; position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; }
-        .close-btn:hover { color: #fc8181; }
-        .modal-content h3 { color: #d4af37; margin-top: 0; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 10px; text-transform: uppercase; }
-        .modal-content p, .modal-content ul { color: #cbd5e0; font-size: 0.95rem; line-height: 1.6; }
-        .modal-content ul { padding-left: 20px; }
-
-        .footer { background-color: #070a12; border-top: 1px solid rgba(212, 175, 55, 0.3); padding: 45px 20px; text-align: center; }
-        .footer-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; }
-        .footer-item h3 { color: #d4af37; font-size: 1.15rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 8px; }
-        .footer-item p { color: #cbd5e0; font-size: 0.95rem; margin: 8px 0; }
-        .footer-item a { color: #68d391; text-decoration: none; font-weight: bold; }
-        .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: #718096; }
+        /* Modal Style */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: #0a0a0a; border: 1px solid #222; padding: 30px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 20px; color: #888; font-size: 24px; cursor: pointer; }
+        .close-btn:hover { color: #fff; }
     </style>
 </head>
 <body>
 
+    <header>
+        <div class="logo">SKAT<span>GROUP</span></div>
+        <div style="color: #666; font-size: 14px;">Global Logistics Portal</div>
+    </header>
+
     <div class="hero">
-        <div class="logo-container">
-            <img src="logo.png" alt="SKAT GROUP" onerror="this.src='https://via.placeholder.com/250/161b22/d4af37?text=SKAT+GROUP'">
-        </div>
-        <h1>SKAT Group</h1>
-        <div class="tagline">Advanced Automotive, Cargo & Logistics Solutions</div>
+        <h1>Advanced Logistics Systems</h1>
+        <p>Seamless cargo solutions, real-time vehicle tracking, and automated digital supply chain management across Oman and global ports.</p>
     </div>
 
-    <div class="main-grid">
-        
-        <!-- لائیو ٹریکنگ کارڈ -->
-        <div class="card-container">
-            <h2>Live Tracking System</h2>
-            <div class="form-group">
-                <label>Enter ID or Chassis Number</label>
-                <input type="text" id="trackInput" class="search-box" placeholder="e.g. SKAT-786, OMAN-2026, VIN...">
-            </div>
-            <button class="search-btn" onclick="startTracking()">Track Shipment</button>
-            <div id="statusResult"></div>
-        </div>
-
-        <!-- کوٹیشن اور ڈیٹیل سینڈ کرنے والا فارم -->
-        <div class="card-container">
-            <h2>Get a Quick Quote</h2>
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" id="clientName" class="search-box" placeholder="Enter your full name...">
-            </div>
-            <div class="form-group">
-                <label>Destination Country</label>
-                <select id="destination" class="form-select" onchange="toggleCustomDestination()">
-                    <option value="Sultanate of Oman">Sultanate of Oman (Local / City to City)</option>
-                    <option value="Pakistan">Pakistan (Door-to-Door / Port)</option>
-                    <option value="United Arab Emirates">United Arab Emirates (UAE)</option>
-                    <option value="Saudi Arabia">Saudi Arabia (KSA)</option>
-                    <option value="Other">Any Other Country (Specify Below)...</option>
-                </select>
+    <div class="container">
+        <div class="grid">
+            <!-- Section 1: Quick Quote -->
+            <div class="card">
+                <h2>Get a Quick Quote</h2>
+                <form id="quoteForm" onsubmit="event.preventDefault();">
+                    <input type="text" id="custName" placeholder="Your Name" required>
+                    <select id="destination" required>
+                        <option value="" disabled selected>Select Destination</option>
+                        <option value="Muscat (Maabela / Seeb)">Muscat (Maabela / Seeb)</option>
+                        <option value="Salalah Port">Salalah Port</option>
+                        <option value="Sohar Port">Sohar Port</option>
+                        <option value="International Cargo">International Cargo</option>
+                    </select>
+                    <textarea id="cargoDetails" rows="4" placeholder="Cargo or Vehicle Details (e.g., Toyota Vitz, VIN/Chassis Number, Specs)" required></textarea>
+                    <button type="button" class="btn" onclick="sendWhatsAppQuote()">Submit via WhatsApp</button>
+                    <button type="button" class="btn btn-alt" onclick="sendEmailQuote()">Submit via Email</button>
+                </form>
             </div>
 
-            <div id="customDestGroup" class="form-group">
-                <label>Enter Country, City & Full Location Details</label>
-                <input type="text" id="customDestination" class="search-box" placeholder="e.g. USA, New York, Port of Houston...">
+            <!-- Section 2: Real-time Tracking -->
+            <div class="card">
+                <h2>Track Your Shipment</h2>
+                <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Enter your unique Tracking ID or VIN to fetch live clearance status from our active ledger.</p>
+                <input type="text" id="trackInput" placeholder="e.g., SKAT-786">
+                <button class="btn" onclick="startTracking()">Track Shipment</button>
+                
+                <div id="statusResult"></div>
             </div>
-
-            <div class="form-group">
-                <label>Detailed Shipment Specs</label>
-                <textarea id="cargoDetails" placeholder="Write full details here (e.g. Car VIN, Electronics items, Box weight, Commercial list...)"></textarea>
-            </div>
-            
-            <div class="btn-group">
-                <button class="action-btn btn-wa" onclick="sendWhatsAppQuote()">WhatsApp</button>
-                <button class="action-btn btn-mail" onclick="sendEmailQuote()">Gmail / Email</button>
-                <a href="https://www.facebook.com/share/1EyCgRjwyR/" target="_blank" class="action-btn btn-fb">🌐 Visit Our Facebook Page</a>
-            </div>
-
-            <div class="legal-note">
-                * Note: All cargo details will be reviewed thoroughly for legal compliance. Prohibited or illegal items will not be accepted.
-            </div>
-        </div>
-
-    </div>
-
-    <div class="footer">
-        <div class="footer-grid">
-            <div class="footer-item">
-                <h3>Our Core Services</h3>
-                <ul class="service-list">
-                    <li class="service-item">
-                        <span>✓ Global Cargo (All Over the World)</span>
-                        <button class="service-btn" onclick="openModal('cargo')">Details</button>
-                    </li>
-                    <li class="service-item">
-                        <span>✓ Customs Clearance</span>
-                        <button class="service-btn" onclick="openModal('customs')">Details</button>
-                    </li>
-                    <li class="service-item">
-                        <span>✓ Secure Warehousing</span>
-                        <button class="service-btn" onclick="openModal('warehouse')">Details</button>
-                    </li>
-                    <li class="service-item">
-                        <span>✓ Advanced Automotive Tech</span>
-                        <button class="service-btn" onclick="openModal('autotech')">Details</button>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="footer-item">
-                <h3>Head Office</h3>
-                <p><strong>SKAT Group International</strong></p>
-                <p>Ma'abela Industrial & Automotive Zone</p>
-                <p>Seeb, Muscat, Sultanate of Oman</p>
-            </div>
-
-            <div class="footer-item">
-                <h3>Contact Support</h3>
-                <p>WhatsApp: <a href="https://wa.me/96876200343" target="_blank" style="color: #68d391; font-weight: bold; text-decoration: none;">+968 7620 0343</a></p>
-                <p>Email: <a href="mailto:salar.blood00@gmail.com" style="color: #68d391; font-weight: bold; text-decoration: none;">salar.blood00@gmail.com</a></p>
-                <p>Support: 24/7 Availability</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            &copy; 2026 SKAT Group. All Rights Reserved.
         </div>
     </div>
 
+    <!-- Details Modal -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle">Service Details</h3>
+            <h3 id="modalTitle" style="margin-bottom: 15px; color: var(--accent);">Service Details</h3>
             <div id="modalBody"></div>
         </div>
     </div>
 
+    <footer>
+        &copy; 2026 SKAT Group (Salar Khan Advanced Technology). All rights reserved. Registered Logistics Operator, Muscat, Oman.
+    </footer>
+
     <script>
-        function startTracking() {
-            var idInput = document.getElementById('trackInput').value.trim();
-            var resultBox = document.getElementById('statusResult');
-            resultBox.style.display = "block";
-            
-            if(idInput === "") {
-                resultBox.innerHTML = "<span style='color: #fc8181;'>⚠ Please enter a Tracking ID or VIN number!</span>";
-                return;
-            }
-            
-            resultBox.innerHTML = "<span style='color: #d4af37;'>🔄 Connecting to SKAT Live Databases...</span>";
-            
-            const sheetId ='1mRk5wBbKARBO-B4hQnAajT2yc9wRurtc-2b8j3Oca_U';
-            const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/pub?output=csv`;
-            
-            fetch(csvUrl)
-                .then(response => response.text())
-                .then(data => {
-                    const rows = data.split('\n').map(row => row.split(','));
-                    let found = false;
-                    
-                    for (let i = 1; i < rows.length; i++) {
-                        if (rows[i][0] && rows[i][0].trim().toUpperCase() === idInput.toUpperCase()) {
-                            const customerName = rows[i][1] || 'N/A';
-                            const status = rows[i][2] || 'N/A';
-                            const location = rows[i][3] || 'N/A';
-                            const date = rows[i][4] || 'N/A';
-                            const details = rows[i][5] || 'N/A';
-                            
-                            resultBox.innerHTML = `
-                                <span style='color: #68d391;'>✓ SHIPMENT FOUND!</span><br>
-                                <strong>Tracking ID:</strong> ${idInput.toUpperCase()}<br>
-                                <strong>Customer Name:</strong> ${customerName}<br>
-                                <strong>Status:</strong> <span style="color: #68d391;">${status}</span><br>
-                                <strong>Current Location:</strong> ${location}<br>
-                                <strong>Last Update:</strong> ${date}<br>
-                                <small style='color: #a0aec0;'><strong>Details:</strong> ${details}</small>
-                            `;
-                            found = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!found) {
-                        resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Tracking ID '" + idInput + "' Not Found.</span><br><small style='color: #a0aec0;'>The shipment might be in initial processing or check ID again.</small>";
-                    }
-                })
-                .catch(error => {
-                    resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Connection Error. Please try again later.</span>";
-                });
-        }
-
-        function toggleCustomDestination() {
-            var destSelect = document.getElementById('destination').value;
-            var customGroup = document.getElementById('customDestGroup');
-            customGroup.style.display = (destSelect === 'Other') ? 'block' : 'none';
-        }
-
+        // کسٹمر فارم کا ڈیٹا حاصل کرنے کا فنکشن
         function getFormData() {
-            var name = document.getElementById('clientName').value.trim();
+            var name = document.getElementById('custName').value.trim();
             var dest = document.getElementById('destination').value;
             var details = document.getElementById('cargoDetails').value.trim();
-            
-            if(name === "" || details === "") {
-                alert("Please fill in your name and shipment details first!");
+
+            if(!name || !dest || !details) {
+                alert('Please fill out all fields before submitting.');
                 return null;
-            }
-            if(dest === 'Other') {
-                var customDest = document.getElementById('customDestination').value.trim();
-                if(customDest === "") { alert("Please specify the Country/Location!"); return null; }
-                dest = "Custom Location: " + customDest;
             }
             return { name: name, dest: dest, details: details };
         }
 
-        function sendWhatsAppQuote() {
-            var data = getFormData(); if(!data) return;
-            var textMessage = "Hello SKAT Group, I want a quotation.%0A%0A" + 
-                              "*Client Name:* " + encodeURIComponent(data.name) + "%0A" +
-                              "*Destination:* " + encodeURIComponent(data.dest) + "%0A" + 
-                              "*Shipment Details:* " + encodeURIComponent(data.details);
-            window.open("https://wa.me/96876200343?text=" + textMessage, '_blank');
-        }
-
-        function sendEmailQuote() {
-            var data = getFormData(); if(!data) return;
-            var subject = "SKAT Group - New Quotation Request from " + data.name;
-            var emailBody = "Hello SKAT Group Team,\n\nI would like to request a quotation. Details below:\n\nClient Name: " + data.name + "\nDestination/Location: " + data.dest + "\nShipment Specs: " + data.details;
-            window.location.href = "mailto:salar.blood00@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(emailBody);
-        }
-
-        function openModal(service) {
-            var modal = document.getElementById('infoModal');
-            var title = document.getElementById('modalTitle');
-            var body = document.getElementById('modalBody');
+        // 1. یہ فنکشن فارم کا ڈیٹا خود بخود میک (Make.com) کے کلاؤڈ پر بھیجے گا
+        function sendToAutomation(name, dest, details) {
+            var makeUrl = "https://hook.us2.make.com/jl5y751906fdeojn29x81kn4dxvxvcjd";
             
-            if(service === 'cargo') {
-                title.innerText = "Global Cargo & Logistics - World Wide Service";
-                body.innerHTML = "<p><strong>Service Overview:</strong> SKAT Group provides complete international freight forwarding and cargo logistics all over the world, including air freight, sea shipping, and cross-border land transport.</p>";
-            } else if(service === 'customs') {
-                title.innerText = "Customs Clearance - Legal Processing";
-                body.innerHTML = "<p><strong>Service Overview:</strong> Complete handling of port, airport, and border clearing documentation.</p>";
-            } else if(service === 'warehouse') {
-                title.innerText = "Secure Warehousing & Storage";
-                body.innerHTML = "<p><strong>Service Overview:</strong> Secured, CCTV-monitored facility in Muscat for bulk cargo and transit vehicles.</p>";
-            } else if(service === 'autotech') {
-                title.innerText = "Advanced Automotive Tech & Diagnostics";
-                body.innerHTML = "<p><strong>Service Overview:</strong> High-end vehicle diagnostics, intelligent coding, CAN bus modifications, and digital electrical system troubleshooting.</p>";
-            }
-            modal.style.display = "block";
+            // ایک رینڈم ٹریکنگ آئی ڈی جنریٹ کرنا (مثال: SKAT-4829)
+            var generatedTrackingId = "SKAT-" + Math.floor(1000 + Math.random() * 9000);
+
+            fetch(makeUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    trackingId: generatedTrackingId,
+                    name: name,
+                    destination: dest,
+                    details: details,
+                    status: "New Request Received",
+                    location: "Website Portal",
+                    date: new Date().toLocaleDateString('en-GB') // کرنٹ ڈیٹ ایڈ کرنا
+                })
+            }).then(response => {
+                console.log("Data successfully synced with AI Ledger.");
+            }).catch(error => {
+                console.error("Automation Sync Error:", error);
+            });
         }
-        function closeModal() { document.getElementById('infoModal').style.display = "none"; }
-        window.onclick = function(e) { if (e.target == document.getElementById('infoModal')) { closeModal(); } }
+
+        // واٹس ایپ پر ڈیٹا بھیجنے اور آٹومیشن رن کرنے کا فنکشن
+        function sendWhatsAppQuote() {
+            var data = getFormData();
+            if(!data) return;
+
+            // میک آٹومیشن کو ڈیٹا ٹرانسفر کریں
+            sendToAutomation(data.name, data.dest, data.details);
+
+            var message = "Hello SKAT Group,%0A%0AI would like to request a shipping quotation.%0A%0A" +
+                          "*Name:* " + encodeURIComponent(data.name) + "%0A" +
+                          "*Destination:* " + encodeURIComponent(data.dest) + "%0A" +
+                          "*Cargo Details:* " + encodeURIComponent(data.details);
+
+            var waLink = "https://wa.me/96876200343?text=" + message;
+            window.open(waLink, '_blank');
+        }
+
+        // ای میل پر ڈیٹا بھیجنے اور آٹومیشن رن کرنے کا فنکشن
+        function sendEmailQuote() {
+            var data = getFormData();
+            if(!data) return;
+
+            // میک آٹومیشن کو ڈیٹا ٹرانسفر کریں
+            sendToAutomation(data.name, data.dest, data.details);
+
+            var subject = "SKAT Quote Request - " + data.name;
+            var body = "Hello SKAT Team,\n\nHere are my shipment requirements:\n\n" +
+                       "Name: " + data.name + "\n" +
+                       "Destination: " + data.dest + "\n" +
+                       "Details: " + data.details;
+
+            var mailtoLink = "mailto:skatgroup.oman@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+            window.location.href = mailtoLink;
+        }
+
+        // 2. ٹریکنگ سسٹم کا فنکشن (گوگل شیٹ سے ڈیٹا اٹھانے کے لیے)
+        function startTracking() {
+            var idInput = document.getElementById('trackInput').value.trim().toUpperCase();
+            var resultBox = document.getElementById('statusResult');
+            resultBox.style.display = "block";
+
+            if (idInput === "") {
+                resultBox.innerHTML = "<span style='color: #fc8181;'>&#9888; Please enter a valid Tracking ID or VIN.</span>";
+                return;
+            }
+
+            resultBox.innerHTML = "<span style='color: #aaa;'>Searching active ledger...</span>";
+
+            // نوٹ: یہاں اپنی لائیو شیٹ کا آئی ڈی ڈالیں اگر آپ شیٹ بدل رہے ہیں
+            const sheetId = '1mRk5wBbKARBO-B4hQnAajT2yc9wRurtc-2b8j3Oca_U'; 
+            const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/pub?output=csv`;
+
+            fetch(csvUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network error or Sheet is not Published to Web.');
+                    return response.text();
+                })
+                .then(csvText => {
+                    // CSV ڈیٹا کو لائن بائی لائن توڑنا
+                    let lines = csvText.split('\n');
+                    let found = false;
+
+                    for (let i = 1; i < lines.length; i++) {
+                        let row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // کوما سیپریٹڈ ڈیٹا مینیج کرنا
+                        if (row[0] && row[0].replace(/"/g, '').trim().toUpperCase() === idInput) {
+                            found = true;
+                            
+                            let trackingId = row[0].replace(/"/g, '').trim();
+                            let name = row[1] ? row[1].replace(/"/g, '').trim() : 'N/A';
+                            let status = row[2] ? row[2].replace(/"/g, '').trim() : 'N/A';
+                            let location = row[3] ? row[3].replace(/"/g, '').trim() : 'N/A';
+                            let date = row[4] ? row[4].replace(/"/g, '').trim() : 'N/A';
+                            let details = row[5] ? row[5].replace(/"/g, '').trim() : 'No extra details';
+
+                            resultBox.innerHTML = `
+                                <div class='status-item'><strong>Tracking ID:</strong> ${trackingId}</div>
+                                <div class='status-item'><strong>Customer Name:</strong> ${name}</div>
+                                <div class='status-item'><strong>Current Status:</strong> <span style='color:#68d391;'>${status}</span></div>
+                                <div class='status-item'><strong>Last Location:</strong> ${location}</div>
+                                <div class='status-item'><strong>Last Updated:</strong> ${date}</div>
+                                <button class='btn btn-alt' style='margin-top:10px; padding:8px;' onclick="openModal('${details}')">View Detailed Logs</button>
+                            `;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        resultBox.innerHTML = "<span style='color: #fc8181;'>&#9888; No record found for ID: " + idInput + ". Please double-check and try again.</span>";
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    resultBox.innerHTML = "<span style='color: #fc8181;'>&#9888; Error fetching tracking data. Make sure your Google Sheet is 'Published to Web' as CSV.</span>";
+                });
+        }
+
+        // مور ڈیٹیلز والا موڈل کنٹرولز
+        function openModal(details) {
+            document.getElementById('modalBody').innerHTML = "<p style='color: #ccc; line-height: 1.6;'>" + details + "</p>";
+            document.getElementById('infoModal').style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
