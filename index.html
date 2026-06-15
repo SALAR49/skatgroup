@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary: #111;
-            --accent: #fc8181;
+            --accent: #fc8181; /* یہ وہی خوبصورت ریڈ/پنک شیڈ ہے جو آپ کی نئی اسکرین پر ہے */
             --text: #fff;
             --bg: #050505;
         }
@@ -21,19 +21,27 @@
         .hero h1 { font-size: 48px; margin-bottom: 20px; letter-spacing: 1px; }
         .hero p { color: #888; font-size: 18px; max-width: 600px; margin: 0 auto 30px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 40px; border-radius: 8px; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); }
+        
+        /* یہ وہی بارڈر اسٹائل ہے جو آپ کی نئی اسکرین پر ریڈ نظر آ رہا ہے */
+        .card { background: #0a0a0a; border: 2px solid #1a1a1a; padding: 40px; border-radius: 8px; transition: 0.3s; }
+        .card.active-border { border-color: var(--accent); } /* ریڈ بارڈر لک */
         .card h2 { margin-bottom: 20px; font-size: 24px; }
+        
         input, textarea, select { width: 100%; padding: 15px; background: #111; border: 1px solid #222; color: #fff; border-radius: 4px; margin-bottom: 15px; font-size: 16px; }
         input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        
+        /* بٹنز کا کلاسک لک */
         .btn { display: inline-block; width: 100%; padding: 15px; background: var(--text); color: #000; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; transition: 0.3s; margin-bottom: 10px; }
         .btn:hover { background: var(--accent); color: #fff; }
         .btn-alt { background: #111; color: #fff; border: 1px solid #222; }
         .btn-alt:hover { background: #222; }
+        .btn-red-outline { background: transparent; color: #fff; border: 2px solid var(--accent); }
+        .btn-red-outline:hover { background: var(--accent); color: #fff; }
+
         #statusResult { margin-top: 20px; padding: 20px; background: #111; border-left: 4px solid var(--accent); border-radius: 4px; display: none; }
         .status-item { margin-bottom: 10px; font-size: 16px; }
         .status-item strong { color: var(--accent); }
-        footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #111; font-size: 14px; margin-top: 6px; }
+        footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #111; font-size: 14px; margin-top: 60px; }
         
         /* Modal Style */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; backdrop-filter: blur(5px); }
@@ -74,12 +82,12 @@
                 </form>
             </div>
 
-            <!-- Section 2: Real-time Tracking -->
-            <div class="card">
+            <!-- Section 2: Real-time Tracking (ریڈ بارڈر کے ساتھ) -->
+            <div class="card active-border">
                 <h2>Track Your Shipment</h2>
                 <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Enter your unique Tracking ID or VIN to fetch live clearance status from our active ledger.</p>
                 <input type="text" id="trackInput" placeholder="e.g., SKAT-786">
-                <button class="btn" onclick="startTracking()">Track Shipment</button>
+                <button class="btn btn-red-outline" onclick="startTracking()">Track Shipment</button>
                 
                 <div id="statusResult"></div>
             </div>
@@ -100,7 +108,6 @@
     </footer>
 
     <script>
-        // کسٹمر فارم کا ڈیٹا حاصل کرنے کا فنکشن
         function getFormData() {
             var name = document.getElementById('custName').value.trim();
             var dest = document.getElementById('destination').value;
@@ -113,11 +120,9 @@
             return { name: name, dest: dest, details: details };
         }
 
-        // 1. یہ فنکشن فارم کا ڈیٹا خود بخود میک (Make.com) کے کلاؤڈ پر بھیجے گا
+        // میک آٹومیشن کو ڈیٹا بھیجنے کا فنکشن
         function sendToAutomation(name, dest, details) {
             var makeUrl = "https://hook.us2.make.com/jl5y751906fdeojn29x81kn4dxvxvcjd";
-            
-            // ایک رینڈم ٹریکنگ آئی ڈی جنریٹ کرنا (مثال: SKAT-4829)
             var generatedTrackingId = "SKAT-" + Math.floor(1000 + Math.random() * 9000);
 
             fetch(makeUrl, {
@@ -130,7 +135,7 @@
                     details: details,
                     status: "New Request Received",
                     location: "Website Portal",
-                    date: new Date().toLocaleDateString('en-GB') // کرنٹ ڈیٹ ایڈ کرنا
+                    date: new Date().toLocaleDateString('en-GB')
                 })
             }).then(response => {
                 console.log("Data successfully synced with AI Ledger.");
@@ -139,12 +144,10 @@
             });
         }
 
-        // واٹس ایپ پر ڈیٹا بھیجنے اور آٹومیشن رن کرنے کا فنکشن
         function sendWhatsAppQuote() {
             var data = getFormData();
             if(!data) return;
 
-            // میک آٹومیشن کو ڈیٹا ٹرانسفر کریں
             sendToAutomation(data.name, data.dest, data.details);
 
             var message = "Hello SKAT Group,%0A%0AI would like to request a shipping quotation.%0A%0A" +
@@ -156,12 +159,10 @@
             window.open(waLink, '_blank');
         }
 
-        // ای میل پر ڈیٹا بھیجنے اور آٹومیشن رن کرنے کا فنکشن
         function sendEmailQuote() {
             var data = getFormData();
             if(!data) return;
 
-            // میک آٹومیشن کو ڈیٹا ٹرانسفر کریں
             sendToAutomation(data.name, data.dest, data.details);
 
             var subject = "SKAT Quote Request - " + data.name;
@@ -174,7 +175,7 @@
             window.location.href = mailtoLink;
         }
 
-        // 2. ٹریکنگ سسٹم کا فنکشن (گوگل شیٹ سے ڈیٹا اٹھانے کے لیے)
+        // لائیو گوگل شیٹ ٹریکنگ سسٹم کا درست کوڈ
         function startTracking() {
             var idInput = document.getElementById('trackInput').value.trim().toUpperCase();
             var resultBox = document.getElementById('statusResult');
@@ -187,22 +188,21 @@
 
             resultBox.innerHTML = "<span style='color: #aaa;'>Searching active ledger...</span>";
 
-            // نوٹ: یہاں اپنی لائیو شیٹ کا آئی ڈی ڈالیں اگر آپ شیٹ بدل رہے ہیں
+            // آپ کی نئی گوگل شیٹ کا بالکل درست آئی ڈی (Updated)
             const sheetId = '1mRk5wBbKARBO-B4hQnAajT2yc9wRurtc-2b8j3Oca_U'; 
             const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/pub?output=csv`;
 
             fetch(csvUrl)
                 .then(response => {
-                    if (!response.ok) throw new Error('Network error or Sheet is not Published to Web.');
+                    if (!response.ok) throw new Error('Network error.');
                     return response.text();
                 })
                 .then(csvText => {
-                    // CSV ڈیٹا کو لائن بائی لائن توڑنا
                     let lines = csvText.split('\n');
                     let found = false;
 
                     for (let i = 1; i < lines.length; i++) {
-                        let row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // کوما سیپریٹڈ ڈیٹا مینیج کرنا
+                        let row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
                         if (row[0] && row[0].replace(/"/g, '').trim().toUpperCase() === idInput) {
                             found = true;
                             
@@ -235,7 +235,6 @@
                 });
         }
 
-        // مور ڈیٹیلز والا موڈل کنٹرولز
         function openModal(details) {
             document.getElementById('modalBody').innerHTML = "<p style='color: #ccc; line-height: 1.6;'>" + details + "</p>";
             document.getElementById('infoModal').style.display = "flex";
