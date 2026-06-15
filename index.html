@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,26 +8,22 @@
         body { margin: 0; padding: 0; background-color: #0b0f19; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .hero { text-align: center; padding: 50px 20px; background: linear-gradient(to bottom, #070a12, #0b0f19); }
         .logo-container { max-width: 250px; margin: 0 auto 20px auto; }
-        .logo-container img { width: 100%; height: auto; border-radius: 10px; border: 2px solid #d4af37; display: block; margin: 0 auto; }
+        .logo-container img { width: 100%; height: auto; border-radius: 10px; border: 2px solid #d4af37; display: block; margin: 0 auto; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
         h1 { font-size: 2.5rem; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
         .tagline { font-size: 1rem; color: #a0aec0; margin-bottom: 35px; letter-spacing: 1px; text-transform: uppercase; }
         
-        /* مین کنٹینر */
         .main-grid { max-width: 1100px; margin: 0 auto 50px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 20px; }
         .card-container { background: rgba(255, 255, 255, 0.03); padding: 35px; border: 1px solid #d4af37; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.6); }
         .card-container h2 { font-size: 1.3rem; margin-top: 0; margin-bottom: 25px; color: #ffffff; letter-spacing: 1px; text-transform: uppercase; text-align: center; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 10px; }
         
-        /* فارم اور ان پٹ اسٹائل */
         .form-group { margin-bottom: 15px; text-align: left; }
         .form-group label { display: block; font-size: 0.85rem; color: #a0aec0; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
         .search-box, .form-select, textarea { width: 100%; padding: 14px; border: 2px solid #4a4a4a; border-radius: 8px; background-color: #1a202c; color: #ffffff; font-weight: bold; font-size: 1rem; outline: none; transition: 0.3s; box-sizing: border-box; }
         .search-box:focus, .form-select:focus, textarea:focus { border-color: #d4af37; box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
         textarea { height: 100px; resize: vertical; font-family: inherit; }
         
-        /* کسٹم کنٹری فیلڈ کا اسٹائل (شروع میں چھپا ہوا ہوگا) */
         #customDestGroup { display: none; margin-top: 15px; background: rgba(212, 175, 55, 0.05); padding: 15px; border-radius: 8px; border: 1px dashed rgba(212, 175, 55, 0.3); }
 
-        /* بٹن کنٹینر */
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .search-btn { background: linear-gradient(135deg, #d4af37, #aa841b); color: #000; border: none; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-sizing: border-box; }
         .search-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
@@ -39,19 +35,14 @@
         .btn-mail { background: linear-gradient(135deg, #ea4335, #b21f14); color: #fff; }
         .btn-mail:hover { box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3); }
 
-        /* لیگل نوٹ کا اسٹائل */
         .legal-note { font-size: 0.75rem; color: #a0aec0; margin-top: 15px; text-align: center; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
+        #statusResult { margin-top: 25px; font-size: 1.1rem; font-weight: bold; padding: 15px; border-radius: 8px; display: none; background: rgba(212, 175, 55, 0.05); border: 1px dashed #d4af37; text-align: left; line-height: 1.6; }
 
-        /* رزلٹ باکس کا اسٹائل */
-        #statusResult { margin-top: 25px; font-size: 1.1rem; font-weight: bold; padding: 15px; border-radius: 8px; display: none; background: rgba(212, 175, 55, 0.05); border: 1px dashed #d4af37; text-align: center; }
-
-        /* سروسز کے بٹن کا اسٹائل */
         .service-list { list-style: none; padding: 0; margin: 0; }
         .service-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; background: rgba(255,255,255,0.02); padding: 12px 15px; border-radius: 6px; border-left: 3px solid #d4af37; font-size: 0.95rem; }
         .service-btn { background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 6px 12px; font-size: 0.8rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
         .service-btn:hover { background: #d4af37; color: #000; }
 
-        /* پاپ اپ باکس (Modal) کا اسٹائل */
         .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
         .modal-content { background-color: #0f1422; margin: 12% auto; padding: 30px; border: 1px solid #d4af37; width: 85%; max-width: 550px; border-radius: 12px; box-shadow: 0 5px 30px rgba(212,175,55,0.2); text-align: left; position: relative; }
         .close-btn { color: #a0aec0; position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; }
@@ -60,13 +51,11 @@
         .modal-content p, .modal-content ul { color: #cbd5e0; font-size: 0.95rem; line-height: 1.6; }
         .modal-content ul { padding-left: 20px; }
 
-        /* فوٹر */
         .footer { background-color: #070a12; border-top: 1px solid rgba(212, 175, 55, 0.3); padding: 45px 20px; text-align: center; }
         .footer-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; }
         .footer-item h3 { color: #d4af37; font-size: 1.15rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 8px; }
         .footer-item p { color: #cbd5e0; font-size: 0.95rem; margin: 8px 0; }
         .footer-item a { color: #68d391; text-decoration: none; font-weight: bold; }
-        
         .footer-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: #718096; }
     </style>
 </head>
@@ -74,27 +63,27 @@
 
     <div class="hero">
         <div class="logo-container">
-            <img src="https://lh3.googleusercontent.com/d/1_C7P8n_R9P-Zf8W7mQ3v8gX2YnK8K8K8" alt="SKAT GROUP" onerror="this.src='logo.jpg'">
+            <!-- یہاں اب آپ کا فائنل تھری ڈی لوگو لوڈ ہوگا -->
+            <img src="logo.png" alt="SKAT GROUP" onerror="this.src='https://lh3.googleusercontent.com/d/1_C7P8n_R9P-Zf8W7mQ3v8gX2YnK8K8K8'">
         </div>
         <h1>SKAT Group</h1>
         <div class="tagline">Advanced Automotive, Cargo & Logistics Solutions</div>
     </div>
 
-    <!-- مین گرڈ -->
     <div class="main-grid">
         
-        <!-- سیکشن ۱: لائیو ٹریکنگ سسٹم -->
+        <!-- لائیو ٹریکنگ سسٹم کارڈ -->
         <div class="card-container">
             <h2>Live Tracking System</h2>
             <div class="form-group">
                 <label>Enter ID or Chassis Number</label>
-                <input type="text" id="trackInput" class="search-box" placeholder="e.g. SKAT-10928 / VIN...">
+                <input type="text" id="trackInput" class="search-box" placeholder="e.g. SKAT-786, OMAN-2026, VIN...">
             </div>
             <button class="search-btn" onclick="startTracking()">Track Shipment</button>
             <div id="statusResult"></div>
         </div>
 
-        <!-- سیکشن ۲: کوٹیشن فارم (ڈائنامک کسٹم لوکیشن کے ساتھ) -->
+        <!-- کوٹیشن فارم -->
         <div class="card-container">
             <h2>Get a Quick Quote</h2>
             <div class="form-group">
@@ -108,15 +97,13 @@
                     <option value="Pakistan">Pakistan (Door-to-Door / Port)</option>
                     <option value="United Arab Emirates">United Arab Emirates (UAE)</option>
                     <option value="Saudi Arabia">Saudi Arabia (KSA)</option>
-                    <!-- جب اس کو سلیکٹ کریں گے تو نیچے نیا ٹیکسٹ خانہ کھل جائے گا -->
                     <option value="Other">Any Other Country (Specify Below)...</option>
                 </select>
             </div>
 
-            <!-- یہ خانہ صرف تب نظر آئے گا جب کسٹمر Other سلیکٹ کرے گا -->
             <div id="customDestGroup" class="form-group">
                 <label>Enter Country, City & Full Location Details</label>
-                <input type="text" id="customDestination" class="search-box" placeholder="e.g. USA, New York, Port of Houston / From-To...">
+                <input type="text" id="customDestination" class="search-box" placeholder="e.g. USA, New York, Port of Houston...">
             </div>
 
             <div class="form-group">
@@ -136,10 +123,8 @@
 
     </div>
 
-    <!-- فوٹر ڈیٹیلز واپس شامل کر دی ہیں -->
     <div class="footer">
         <div class="footer-grid">
-            <!-- ہماری سروسز پاپ اپ بٹنز کے ساتھ -->
             <div class="footer-item">
                 <h3>Our Core Services</h3>
                 <ul class="service-list">
@@ -182,7 +167,6 @@
         </div>
     </div>
 
-    <!-- پاپ اپ ڈبہ (Modal HTML) -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -192,18 +176,13 @@
     </div>
 
     <script>
-        // کسٹم کنٹری فیلڈ کو دکھانے اور چھپانے کا جادو
-        function toggleCustomDestination() {
-            var destSelect = document.getElementById('destination').value;
-            var customGroup = document.getElementById('customDestGroup');
-            if(destSelect === 'Other') {
-                customGroup.style.display = 'block';
-            } else {
-                customGroup.style.display = 'none';
-            }
-        }
+        // لوکل ڈیٹا بیس ٹریکنگ انجن
+        var trackingDatabase = {
+            "SKAT-786": { status: "Departed from Muscat Port", location: "Transit to Destination", date: "June 15, 2026", details: "Toyota Vitz Sports EV Conversion Shipment." },
+            "OMAN-2026": { status: "In Custom Clearance", location: "Wajajah Border", date: "June 14, 2026", details: "High-End Automotive Spare Parts & Diagnostic Tools." },
+            "VIN-12345": { status: "Arrived at Workshop", location: "Ma'abela Industrial, Seeb", date: "June 12, 2026", details: "Vehicle Electronics and Module Recalibration Cargo." }
+        };
 
-        // لائیو ٹریکنگ انجن
         function startTracking() {
             var idInput = document.getElementById('trackInput').value.trim();
             var resultBox = document.getElementById('statusResult');
@@ -214,14 +193,29 @@
                 return;
             }
             
-            resultBox.innerHTML = "<span style='color: #d4af37;'>🔄 Connecting to SKAT Live Servers...</span><br><small style='color: #a0aec0;'>Fetching status from database...</small>";
+            resultBox.innerHTML = "<span style='color: #d4af37;'>🔄 Connecting to SKAT Live Servers...</span>";
             
             setTimeout(function() {
-                resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Tracking ID '" + idInput + "' Not Found.<br><small style='color: #a0aec0;'>The shipment might be in processing. Please contact SKAT support to verify.</small></span>";
-            }, 1500);
+                // اگر آئی ڈی ڈیٹا بیس میں مل جائے
+                if(trackingDatabase[idInput]) {
+                    var data = trackingDatabase[idInput];
+                    resultBox.innerHTML = "<span style='color: #68d391;'>✓ SHIPMENT FOUND!</span><br>" +
+                                          "<strong>Status:</strong> " + data.status + "<br>" +
+                                          "<strong>Current Location:</strong> " + data.location + "<br>" +
+                                          "<strong>Last Update:</strong> " + data.date + "<br>" +
+                                          "<small style='color: #a0aec0;'><strong>Details:</strong> " + data.details + "</small>";
+                } else {
+                    resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Tracking ID '" + idInput + "' Not Found.</span><br><small style='color: #a0aec0;'>The shipment might be in initial processing. Please contact SKAT support to verify.</small>";
+                }
+            }, 1000);
         }
 
-        // تمام ڈیٹا اکٹھا کرنے کا انجن
+        function toggleCustomDestination() {
+            var destSelect = document.getElementById('destination').value;
+            var customGroup = document.getElementById('customDestGroup');
+            customGroup.style.display = (destSelect === 'Other') ? 'block' : 'none';
+        }
+
         function getFormData() {
             var name = document.getElementById('clientName').value.trim();
             var dest = document.getElementById('destination').value;
@@ -231,55 +225,30 @@
                 alert("Please fill in your name and shipment details first!");
                 return null;
             }
-
-            // اگر کسٹمر نے Other سلیکٹ کیا ہو تو کسٹم لوکیشن اٹھائے گا
             if(dest === 'Other') {
                 var customDest = document.getElementById('customDestination').value.trim();
-                if(customDest === "") {
-                    alert("Please specify the Country/Location!");
-                    return null;
-                }
+                if(customDest === "") { alert("Please specify the Country/Location!"); return null; }
                 dest = "Custom Location: " + customDest;
             }
-            
             return { name: name, dest: dest, details: details };
         }
 
-        // واٹس ایپ انجن
         function sendWhatsAppQuote() {
-            var data = getFormData();
-            if(!data) return;
-            
+            var data = getFormData(); if(!data) return;
             var textMessage = "Hello SKAT Group, I want a quotation.%0A%0A" + 
                               "*Client Name:* " + encodeURIComponent(data.name) + "%0A" +
                               "*Destination:* " + encodeURIComponent(data.dest) + "%0A" + 
                               "*Shipment Details:* " + encodeURIComponent(data.details);
-            
-            var whatsappUrl = "https://api.whatsapp.com/send?phone=96876200343&text=" + textMessage;
-            window.open(whatsappUrl, '_blank');
+            window.open("https://api.whatsapp.com/send?phone=96876200343&text=" + textMessage, '_blank');
         }
 
-        // ای میل انجن
         function sendEmailQuote() {
-            var data = getFormData();
-            if(!data) return;
-            
+            var data = getFormData(); if(!data) return;
             var subject = "SKAT Group - New Quotation Request from " + data.name;
-            var emailBody = "Hello SKAT Group Team,\n\n" +
-                            "I would like to request a quotation. Details below:\n\n" +
-                            "Client Name: " + data.name + "\n" +
-                            "Destination/Location: " + data.dest + "\n" +
-                            "Shipment Specs: " + data.details + "\n\n" +
-                            "Please review for compliance and send rates.";
-            
-            var mailtoUrl = "mailto:Salar.blood00@gmail.com" + 
-                            "?subject=" + encodeURIComponent(subject) + 
-                            "&body=" + encodeURIComponent(emailBody);
-            
-            window.location.href = mailtoUrl;
+            var emailBody = "Hello SKAT Group Team,\n\nI would like to request a quotation. Details below:\n\nClient Name: " + data.name + "\nDestination/Location: " + data.dest + "\nShipment Specs: " + data.details;
+            window.location.href = "mailto:Salar.blood00@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(emailBody);
         }
 
-        // پاپ اپ مینجمنٹ
         function openModal(service) {
             var modal = document.getElementById('infoModal');
             var title = document.getElementById('modalTitle');
@@ -287,8 +256,7 @@
             
             if(service === 'cargo') {
                 title.innerText = "Global Cargo & Logistics - World Wide Service";
-                body.innerHTML = "<p><strong>Service Overview:</strong> SKAT Group provides complete international freight forwarding and cargo logistics all over the world, including air freight, sea shipping, and cross-border land transport.</p>" +
-                                 "<p><strong>Global Network:</strong> From local heavy moving inside Oman to special door-to-door deliveries in Pakistan, GCC countries, and international worldwide destinations.</p>";
+                body.innerHTML = "<p><strong>Service Overview:</strong> SKAT Group provides complete international freight forwarding and cargo logistics all over the world, including air freight, sea shipping, and cross-border land transport.</p>";
             } else if(service === 'customs') {
                 title.innerText = "Customs Clearance - Legal Processing";
                 body.innerHTML = "<p><strong>Service Overview:</strong> Complete handling of port, airport, and border clearing documentation.</p>";
@@ -301,10 +269,8 @@
             }
             modal.style.display = "block";
         }
-
         function closeModal() { document.getElementById('infoModal').style.display = "none"; }
         window.onclick = function(e) { if (e.target == document.getElementById('infoModal')) { closeModal(); } }
     </script>
-
 </body>
 </html>
