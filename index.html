@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKAT Group | Advanced Technology, Automotive & Logistics</title>
-    <!-- PWA کے لیے موبائل لنکس -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b0f19">
     <style>
@@ -33,6 +32,7 @@
             text-align: center;
             background: linear-gradient(135deg, #0b0f19 0%, #1f293d 100%);
             border-bottom: 2px solid var(--primary-gold);
+            box-sizing: border-box;
         }
 
         .logo-container img {
@@ -84,7 +84,6 @@
             padding-bottom: 10px;
         }
 
-        /* ٹریکنگ سسٹم کا ڈیزائن */
         .search-box {
             display: flex;
             gap: 10px;
@@ -125,6 +124,10 @@
             background: transparent;
             color: var(--primary-gold);
             border: 1px solid var(--primary-gold);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         .btn-outline:hover {
@@ -139,26 +142,31 @@
             display: none;
         }
 
-        /* لنکس اور فوٹر */
-        .social-links {
-            display: flex;
-            justify-content: center;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 25px;
         }
 
-        .social-btn {
-            padding: 10px 20px;
-            border-radius: 20px;
+        .contact-btn {
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            text-align: center;
+            transition: opacity 0.3s;
+            color: white;
+            font-size: 0.95rem;
         }
 
-        .fb-btn { background-color: #1877f2; color: white; }
+        .contact-btn:hover {
+            opacity: 0.9;
+        }
+
         .wa-btn { background-color: #25d366; color: black; }
+        .fb-btn { background-color: #1877f2; }
+        .email-btn { background-color: #ea4335; }
 
         footer {
             margin-top: 40px;
@@ -168,9 +176,9 @@
             font-size: 0.9rem;
             width: 100%;
             border-top: 1px solid #30363d;
+            box-sizing: border-box;
         }
 
-        /* پاپ اپ مینو (Modal) کا ڈیزائن */
         .modal {
             display: none;
             position: fixed;
@@ -207,7 +215,6 @@
 
 <header>
     <div class="logo-container">
-        <!-- یہاں آپ کا تھری ڈی لوگو اٹو میٹک لوڈ ہوگا اگر نام logo.png ہے -->
         <img src="logo.png" alt="SKAT Group Logo" onerror="this.src='https://via.placeholder.com/120/161b22/d4af37?text=SKAT+GROUP'">
     </div>
     <h1>SKAT GROUP</h1>
@@ -216,7 +223,7 @@
 
 <div class="main-container">
 
-    <!-- 1. لائیو ٹریکنگ کارڈ (گوگل شیٹ کنکشن) -->
+    <!-- 1. لائیو ٹریکنگ کارڈ -->
     <div class="card">
         <h2>Live System Tracking</h2>
         <p>Enter your Tracking ID or Vehicle VIN to pull the live status from our operational databases.</p>
@@ -234,21 +241,24 @@
         <p><strong>Global Logistics & Cargo:</strong> Seamless cargo operations and tracking across Omani and international trade routes.</p>
     </div>
 
-    <!-- 3. قوانین اور سوشل میڈیا لنکس -->
+    <!-- 3. رابطہ اور قوانین کا کارڈ -->
     <div class="card" style="text-align: center;">
         <h2>Connect & Legal Compliance</h2>
         <p>We operate under strict Omani & International Logistics Regulations.</p>
+        
         <button class="btn btn-outline" onclick="openModal()">View Legal Policies</button>
         
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/157E6zE7p2/" target="_blank" class="social-btn fb-btn">Facebook Page</a>
-            <a href="https://wa.me/968XXXXXXXX" target="_blank" class="social-btn wa-btn">WhatsApp Support</a>
+        <!-- واٹس ایپ، نیا فیس بک لنک اور ای میل کے لائیو بٹنز -->
+        <div class="contact-grid">
+            <a href="https://wa.me/96876200343" target="_blank" class="contact-btn wa-btn">💬 WhatsApp Support</a>
+            <a href="https://www.facebook.com/share/1EyCgRjwyR/" target="_blank" class="contact-btn fb-btn">🌐 Facebook Page</a>
+            <a href="mailto:salar.blood00@gmail.com" class="contact-btn email-btn">✉️ Official Email</a>
         </div>
     </div>
 
 </div>
 
-<!-- قوانین کا پاپ اپ باکس (Modal) -->
+<!-- قوانین کا پاپ اپ باکس -->
 <div id="legalModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -265,7 +275,6 @@
 </footer>
 
 <script>
-    // گوگل شیٹ سے لائیو ڈیٹا کھینچنے کا جادوئی فنکشن
     function trackOrder() {
         const id = document.getElementById('tracking-id').value.trim();
         const resultDiv = document.getElementById('tracking-result');
@@ -318,7 +327,6 @@
             });
     }
 
-    // پاپ اپ کنٹرول کرنے کے فنکشنز
     function openModal() { document.getElementById('legalModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('legalModal').style.display = 'none'; }
     window.onclick = function(event) {
@@ -326,7 +334,6 @@
         if (event.target == modal) { modal.style.display = 'none'; }
     }
 
-    // PWA سروس ورکر رجسٹریشن
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js').then(() => console.log('SKAT App Connected'));
     }
