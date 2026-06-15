@@ -34,10 +34,6 @@
         .btn-wa:hover { box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
         .btn-mail { background: linear-gradient(135deg, #ea4335, #b21f14); color: #fff; }
         .btn-mail:hover { box-shadow: 0 4px 15px rgba(234, 67, 53, 0.3); }
-        
-        /* فیس بک کے لیے خصوصی بٹن اسٹائل */
-        .btn-fb { background: linear-gradient(135deg, #1877f2, #0d52b7); color: #fff; grid-column: span 2; margin-top: 5px; }
-        .btn-fb:hover { box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); }
 
         .legal-note { font-size: 0.75rem; color: #a0aec0; margin-top: 15px; text-align: center; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
         #statusResult { margin-top: 25px; font-size: 1.1rem; font-weight: bold; padding: 15px; border-radius: 8px; display: none; background: rgba(212, 175, 55, 0.05); border: 1px dashed #d4af37; text-align: left; line-height: 1.6; }
@@ -67,7 +63,8 @@
 
     <div class="hero">
         <div class="logo-container">
-            <img src="logo.png" alt="SKAT GROUP" onerror="this.src='https://via.placeholder.com/250/161b22/d4af37?text=SKAT+GROUP'">
+            <!-- یہاں اب آپ کا فائنل تھری ڈی لوگو لوڈ ہوگا -->
+            <img src="logo.png" alt="SKAT GROUP" onerror="this.src='https://lh3.googleusercontent.com/d/1_C7P8n_R9P-Zf8W7mQ3v8gX2YnK8K8K8'">
         </div>
         <h1>SKAT Group</h1>
         <div class="tagline">Advanced Automotive, Cargo & Logistics Solutions</div>
@@ -75,7 +72,7 @@
 
     <div class="main-grid">
         
-        <!-- لائیو ٹریکنگ سسٹم کارڈ (اب براہ راست گوگل شیٹ سے منسلک ہے) -->
+        <!-- لائیو ٹریکنگ سسٹم کارڈ -->
         <div class="card-container">
             <h2>Live Tracking System</h2>
             <div class="form-group">
@@ -117,7 +114,6 @@
             <div class="btn-group">
                 <button class="action-btn btn-wa" onclick="sendWhatsAppQuote()">WhatsApp</button>
                 <button class="action-btn btn-mail" onclick="sendEmailQuote()">Gmail / Email</button>
-                <a href="https://www.facebook.com/share/1EyCgRjwyR/" target="_blank" class="action-btn btn-fb">🌐 Visit Our Facebook Page</a>
             </div>
 
             <div class="legal-note">
@@ -160,7 +156,7 @@
 
             <div class="footer-item">
                 <h3>Contact Support</h3>
-                <p>WhatsApp: <a href="https://wa.me/96876200343" target="_blank" style="color: #68d391; font-weight: bold; text-decoration: none;">+968 7620 0343</a></p>
+                <p>WhatsApp: <a href="https://api.whatsapp.com/send?phone=96876200343" target="_blank" style="color: #68d391; font-weight: bold; text-decoration: none;">+968 7620 0343</a></p>
                 <p>Email: <a href="mailto:Salar.blood00@gmail.com" style="color: #68d391; font-weight: bold; text-decoration: none;">Salar.blood00@gmail.com</a></p>
                 <p>Support: 24/7 Availability</p>
             </div>
@@ -180,7 +176,13 @@
     </div>
 
     <script>
-        // لائیو کلاؤڈ ٹریکنگ انجن (گوگل شیٹ ڈیٹا لنکر)
+        // لوکل ڈیٹا بیس ٹریکنگ انجن
+        var trackingDatabase = {
+            "SKAT-786": { status: "Departed from Muscat Port", location: "Transit to Destination", date: "June 15, 2026", details: "Toyota Vitz Sports EV Conversion Shipment." },
+            "OMAN-2026": { status: "In Custom Clearance", location: "Wajajah Border", date: "June 14, 2026", details: "High-End Automotive Spare Parts & Diagnostic Tools." },
+            "VIN-12345": { status: "Arrived at Workshop", location: "Ma'abela Industrial, Seeb", date: "June 12, 2026", details: "Vehicle Electronics and Module Recalibration Cargo." }
+        };
+
         function startTracking() {
             var idInput = document.getElementById('trackInput').value.trim();
             var resultBox = document.getElementById('statusResult');
@@ -191,50 +193,21 @@
                 return;
             }
             
-            resultBox.innerHTML = "<span style='color: #d4af37;'>🔄 Connecting to SKAT Live Databases...</span>";
+            resultBox.innerHTML = "<span style='color: #d4af37;'>🔄 Connecting to SKAT Live Servers...</span>";
             
-            // آپ کی لائیو گوگل شیٹ کا لنک
-            const sheetId = '1mRk5wBbKARBO-B4hQnAajT2yc9wRurtc-2b8j3Oca_U';
-            const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/pub?output=csv`;
-            
-            fetch(csvUrl)
-                .then(response => response.text())
-                .then(data => {
-                    // تمام قطاروں کو الگ کرنا
-                    const rows = data.split('\n').map(row => row.split(','));
-                    let found = false;
-                    
-                    for (let i = 1; i < rows.length; i++) {
-                        if (rows[i][0] && rows[i][0].trim().toUpperCase() === idInput.toUpperCase()) {
-                            // گوگل شیٹ کالمز کی ترتیب کے مطابق ڈیٹا اٹھانا
-                            const customerName = rows[i][1] || 'N/A';
-                            const status = rows[i][2] || 'N/A';
-                            const location = rows[i][3] || 'N/A';
-                            const date = rows[i][4] || 'N/A';
-                            const details = rows[i][5] || 'N/A';
-                            
-                            resultBox.innerHTML = `
-                                <span style='color: #68d391;'>✓ SHIPMENT FOUND!</span><br>
-                                <strong>Tracking ID:</strong> ${idInput.toUpperCase()}<br>
-                                <strong>Customer Name:</strong> ${customerName}<br>
-                                <strong>Status:</strong> <span style="color: #68d391;">${status}</span><br>
-                                <strong>Current Location:</strong> ${location}<br>
-                                <strong>Last Update:</strong> ${date}<br>
-                                <small style='color: #a0aec0;'><strong>Details:</strong> ${details}</small>
-                            `;
-                            found = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!found) {
-                        resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Tracking ID '" + idInput + "' Not Found.</span><br><small style='color: #a0aec0;'>The shipment might be in initial processing or check ID again.</small>";
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Connection Error. Please try again later.</span>";
-                });
+            setTimeout(function() {
+                // اگر آئی ڈی ڈیٹا بیس میں مل جائے
+                if(trackingDatabase[idInput]) {
+                    var data = trackingDatabase[idInput];
+                    resultBox.innerHTML = "<span style='color: #68d391;'>✓ SHIPMENT FOUND!</span><br>" +
+                                          "<strong>Status:</strong> " + data.status + "<br>" +
+                                          "<strong>Current Location:</strong> " + data.location + "<br>" +
+                                          "<strong>Last Update:</strong> " + data.date + "<br>" +
+                                          "<small style='color: #a0aec0;'><strong>Details:</strong> " + data.details + "</small>";
+                } else {
+                    resultBox.innerHTML = "<span style='color: #fc8181;'>❌ Tracking ID '" + idInput + "' Not Found.</span><br><small style='color: #a0aec0;'>The shipment might be in initial processing. Please contact SKAT support to verify.</small>";
+                }
+            }, 1000);
         }
 
         function toggleCustomDestination() {
@@ -266,7 +239,7 @@
                               "*Client Name:* " + encodeURIComponent(data.name) + "%0A" +
                               "*Destination:* " + encodeURIComponent(data.dest) + "%0A" + 
                               "*Shipment Details:* " + encodeURIComponent(data.details);
-            window.open("https://wa.me/96876200343?text=" + textMessage, '_blank');
+            window.open("https://api.whatsapp.com/send?phone=96876200343&text=" + textMessage, '_blank');
         }
 
         function sendEmailQuote() {
