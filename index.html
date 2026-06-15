@@ -160,10 +160,7 @@
             font-size: 0.95rem;
         }
 
-        .contact-btn:hover {
-            opacity: 0.9;
-        }
-
+        .contact-btn:hover { opacity: 0.9; }
         .wa-btn { background-color: #25d366; color: black; }
         .fb-btn { background-color: #1877f2; }
         .email-btn { background-color: #ea4335; }
@@ -207,7 +204,6 @@
             cursor: pointer;
             color: var(--text-gray);
         }
-
         .close-btn:hover { color: white; }
     </style>
 </head>
@@ -248,7 +244,7 @@
         
         <button class="btn btn-outline" onclick="openModal()">View Legal Policies</button>
         
-        <!-- واٹس ایپ، نیا فیس بک لنک اور ای میل کے لائیو بٹنز -->
+        <!-- واٹس ایپ، فیس بک اور ای میل کے لائیو لنکس -->
         <div class="contact-grid">
             <a href="https://wa.me/96876200343" target="_blank" class="contact-btn wa-btn">💬 WhatsApp Support</a>
             <a href="https://www.facebook.com/share/1EyCgRjwyR/" target="_blank" class="contact-btn fb-btn">🌐 Facebook Page</a>
@@ -263,10 +259,9 @@
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
         <h3 style="color: var(--primary-gold); margin-top:0;">Legal & Compliance Policy</h3>
-        <p><strong>1. Cargo Compliance:</strong> SKAT Group adheres strictly to international shipping regulations. Shipping of prohibited, illegal, or hazardous materials is strictly forbidden.</p>
+        <p><strong>1. Cargo Compliance:</strong> SKAT Group adheres strictly to international shipping regulations.</p>
         <p><strong>2. Automotive Liability:</strong> All diagnostic, ECU programming, and tuning services are performed according to manufacturer safety codes.</p>
-        <p><strong>3. Data Privacy:</strong> Client documentation, vehicle VIN details, and data telemetry are fully encrypted and securely stored.</p>
-        <p style="color: var(--primary-gold); font-size: 0.85rem; margin-top: 15px;">* Operating transparently under local regulations in Muscat, Oman.</p>
+        <p><strong>3. Data Privacy:</strong> Client documentation, vehicle VIN details, and data telemetry are fully encrypted.</p>
     </div>
 </div>
 
@@ -279,10 +274,7 @@
         const id = document.getElementById('tracking-id').value.trim();
         const resultDiv = document.getElementById('tracking-result');
         
-        if (!id) {
-            alert('Please enter a Tracking ID / VIN number');
-            return;
-        }
+        if (!id) { alert('Please enter a Tracking ID'); return; }
         
         resultDiv.style.display = 'block';
         resultDiv.innerHTML = '<p style="color: var(--primary-gold);">Accessing SKAT secure databases...</p>';
@@ -298,14 +290,16 @@
                 
                 for (let i = 1; i < rows.length; i++) {
                     if (rows[i][0] && rows[i][0].trim().toUpperCase() === id.toUpperCase()) {
-                        const status = rows[i][1] || 'N/A';
-                        const location = rows[i][2] || 'N/A';
-                        const date = rows[i][3] || 'N/A';
-                        const details = rows[i][4] || 'N/A';
+                        const clientName = rows[i][1] || 'N/A';
+                        const status = rows[i][2] || 'N/A';
+                        const location = rows[i][3] || 'N/A';
+                        const date = rows[i][4] || 'N/A';
+                        const details = rows[i][5] || 'N/A';
                         
                         resultDiv.innerHTML = `
                             <div style="border-left: 4px solid var(--primary-gold); padding-left: 15px; text-align: left;">
                                 <h4 style="color: var(--primary-gold); margin-bottom: 10px;">ID: ${id.toUpperCase()}</h4>
+                                <p><strong>Customer Name:</strong> ${clientName}</p>
                                 <p><strong>Status:</strong> <span style="color: #2ecc71;">${status}</span></p>
                                 <p><strong>Location:</strong> ${location}</p>
                                 <p><strong>Last Updated:</strong> ${date}</p>
@@ -316,27 +310,17 @@
                         break;
                     }
                 }
-                
                 if (!found) {
-                    resultDiv.innerHTML = `<p style="color: #e74c3c;">No records found for "${id}". Check the number or contact support.</p>`;
+                    resultDiv.innerHTML = `<p style="color: #e74c3c;">No records found for "${id}".</p>`;
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                resultDiv.innerHTML = '<p style="color: #e74c3c;">Connection error. Please try again.</p>';
+            .catch(() => {
+                resultDiv.innerHTML = '<p style="color: #e74c3c;">Connection error.</p>';
             });
     }
 
     function openModal() { document.getElementById('legalModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('legalModal').style.display = 'none'; }
-    window.onclick = function(event) {
-        let modal = document.getElementById('legalModal');
-        if (event.target == modal) { modal.style.display = 'none'; }
-    }
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(() => console.log('SKAT App Connected'));
-    }
 </script>
 
 </body>
